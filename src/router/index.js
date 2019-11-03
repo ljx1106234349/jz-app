@@ -10,6 +10,9 @@ import User from '../pages/manager/User'
 import Login from '../pages/Login'
 import List from '../pages/List'
 import Confirm from '../pages/Confirm'
+import AddAddress from '../pages/AddAddress'
+import UpdateAddress from '../pages/UpdateAddress'
+
 
 import { getToken } from '../utils/auth'
 import { Toast } from 'vant'
@@ -39,7 +42,7 @@ const routes = [
       } else {
         Toast("token失效")
         // 跳转到登录
-        next({path:'/login'})
+        next({path:'/'})
       }
     },
     children:[{
@@ -75,7 +78,7 @@ const routes = [
       } else {
         Toast("token失效")
         // 跳转到登录
-        next({path:'/login'})
+        next({path:'/'})
       }
     }
   },
@@ -96,7 +99,49 @@ const routes = [
       } else {
         Toast("token失效")
         // 跳转到登录
-        next({path:'/login'})
+        next({path:'/'})
+      }
+    }
+  },
+  {
+    path:'/addaddress',
+    name: 'addaddress',
+    component:AddAddress,
+    beforeEnter: (to, from, next) => {  
+      //属于路由自己的拦截器
+      let token = getToken();
+      if(token){
+        // 查询info
+        store.dispatch('user/info',token)
+        .then(()=>{
+          // 当获取万用户信息之后才允许跳转
+          next();
+        })
+      } else {
+        Toast("token失效")
+        // 跳转到登录
+        next({path:'/'})
+      }
+    }
+  },
+  {
+    path:'/updateaddress',
+    name: 'updateaddress',
+    component:UpdateAddress,
+    beforeEnter: (to, from, next) => {  
+      //属于路由自己的拦截器
+      let token = getToken();
+      if(token){
+        // 查询info
+        store.dispatch('user/info',token)
+        .then(()=>{
+          // 当获取万用户信息之后才允许跳转
+          next();
+        })
+      } else {
+        Toast("token失效")
+        // 跳转到登录
+        next({path:'/'})
       }
     }
   }

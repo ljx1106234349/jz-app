@@ -8,23 +8,46 @@
     />
      
     
-    <van-row>
-      <van-col :span="6">顾客信息</van-col>
-      <van-col :span="17">{{info}}</van-col>
-    </van-row>
-  <van-divider />
-    <van-row>
-      <van-col :span="6">地址信息</van-col>
-      <van-col :span="17">{{addresses}}</van-col>
-    </van-row>
-  <van-divider />
-    <van-row>
-      <van-col :span="6">订单详情</van-col>
-      <van-col :span="17" v-for="item in orderLines.values()" :key="item.c">
-        {{item}}
-      </van-col>
-    </van-row>
-  <van-divider />
+    <van-panel>
+      <van-row>
+        <van-col :span="6"><span style="text-algin:center;"><span style="text-algin:center;">顾客信息</span></span></van-col>
+        <van-col :span="17" offset="6">
+          <div>顾客ID：{{info.id}}</div>
+          <div>姓名：{{info.name}}</div>
+        </van-col>
+      </van-row>
+    </van-panel>
+ 
+    
+      <van-row>
+        <van-col :span="6">地址信息</van-col>
+        <van-col :span="17">
+          <van-dropdown-menu active-color="#ee0a24">
+            <van-dropdown-item v-model="value"  :options="addresses"  @change="toSelectHandler"/>
+          </van-dropdown-menu>
+        </van-col>
+        <!-- <van-col :span="17" offset="6" v-for="item in addresses" :key="item.a">
+          <div>{{item.province+" "+item.city+" "+item.area}}</div>
+          <div>{{item.address}}</div>
+        </van-col> -->
+      </van-row>
+    
+ 
+    <van-panel>
+      <van-row >
+        <van-col :span="6">订单详情</van-col>
+        <van-col :span="17" offset="6" v-for="item in orderLines.values()" :key="item.c">
+          
+          <div>产品：{{item.productName}}</div>
+          <div>
+            <span>价格：{{item.price}}</span>
+            <span>数量：x {{item.number}}</span>
+          </div>
+        </van-col>
+      </van-row>
+    </van-panel>
+    <!-- {{info}} -->
+    <!-- {{addresses}} -->
 
     <div class="aaa">
       <van-button type="primary" size="large" @click="onSubmit">确认订单</van-button>
@@ -36,7 +59,9 @@ import {mapState,mapActions,mapMutations} from 'vuex'
 export default {
   data(){
     return {
-
+      chosenAddressId: '1',
+      value:2228,
+      id:''
     }
   },
   created(){
@@ -57,7 +82,7 @@ export default {
     },
     // 确认订单
     onSubmit(){
-      this.saveOrder()
+      this.saveOrder(this.id)
       .then((response)=>{
         this.$notify({ 
           type: 'success', 
@@ -65,6 +90,11 @@ export default {
         });
         this.$router.push({path:'/manager/order'})
       })
+    },
+    
+    toSelectHandler(value){
+      console.log(value);
+      this.id = value;
     }
   }
 }
@@ -75,4 +105,5 @@ export default {
     bottom: 0;
     width: 100%;
   }
+  
 </style>

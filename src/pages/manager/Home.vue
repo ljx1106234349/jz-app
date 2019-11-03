@@ -31,8 +31,9 @@ export default {
     ...mapActions("category",["findAllcategory"]),
     GridChangeHandler(categoryId,activeKey){
       // console.log("categoryId",categoryId);
+      
       this.$router.push({
-        path:'/list',
+        path:"/List",
         query:{categoryId,activeKey}
       })
     }
