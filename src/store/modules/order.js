@@ -30,6 +30,7 @@ export default {
         // console.log(item.time);
       })
       commit('refreshOrders',response.data)
+      return response;
     },
      // 保存订单信息
      async saveOrder({commit,rootState},id){
@@ -40,7 +41,7 @@ export default {
         addressId : id,
         orderLines : Array.from(rootState.shop_car.orderLines.values())
       }
-      console.log(data);
+      // console.log(data);
       // 2. 调用后台接口完成保存
       let response = await post_obj_array('/order/save',data)
       // 3. 清空购物车(order ---> shop_car)

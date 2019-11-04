@@ -61,7 +61,7 @@ export default {
     return {
       chosenAddressId: '1',
       value:2228,
-      id:''
+      id:2228
     }
   },
   created(){
@@ -93,7 +93,7 @@ export default {
     },
     
     toSelectHandler(value){
-      console.log(value);
+      // console.log(value);
       this.id = value;
     }
   }

@@ -27,6 +27,8 @@
       </van-row>
     <van-divider />
       <!-- {{addresses}} -->
+      <!-- {{orders}} -->
+      
       <van-row>
         <div class="tuichu">
             <a href="" @click.prevent="logoutHandler">退出</a>
@@ -37,16 +39,24 @@
 <script>
 import {mapState,mapActions} from 'vuex'
 export default {
+  data(){
+    return{
+     
+    }
+  },
   created(){
     this.findAllAddresses();
+    
   },
   computed:{
   ...mapState('user',['info','token']),
   ...mapState('address',['addresses']),
+  
   },
   methods:{
   ...mapActions('user',['logout']),
   ...mapActions('address',['findAllAddresses']),
+  
   logoutHandler(){
       //1、退出
       this.logout()

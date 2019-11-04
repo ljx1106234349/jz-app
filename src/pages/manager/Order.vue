@@ -133,20 +133,21 @@ export default {
       active:0
     }
   },
+  created(){
+    this.findAllOrders();
+  },
   computed:{
     ...mapState('order',['orders']),
     ...mapGetters('order',['orderStatusFilter'])
   },
-  created(){
-    this.findAllOrders();
-  },
+  
   methods:{
     ...mapActions('order',['findAllOrders','confirmOrder']),
     confirmHandler(id){
       //console.log(id);
     this.confirmOrder(id);
-      
-    }
+    },
+    
   }
 }
 </script>
