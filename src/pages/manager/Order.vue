@@ -1,6 +1,6 @@
 <template>
    <div class="order">
-      <van-tabs v-model="active">
+      <van-tabs v-model="active"  :swipe-threshold="5">
           <van-tab title="全部订单">
             <van-panel v-for="item in orders" :key="item.a">
               <van-row>
