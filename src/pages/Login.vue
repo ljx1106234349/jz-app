@@ -27,7 +27,9 @@
             />
         </van-cell-group>
         <div style="text-align:center">
-        <van-button plain hairline type="default" @click="loginHandler">登录</van-button>
+        <van-button plain size="small" type="primary" @click="loginHandler" style="margin-right:10px;">登录</van-button>
+        <van-button plain size="small" type="info" @click="AddCustomerHandler">注册</van-button>
+        
         </div>
     </div>
 </div> 
@@ -50,6 +52,9 @@ export default {
                 //跳转到首页
                 this.$router.push({path:'/manager/home'})
             })
+        },
+        AddCustomerHandler(){
+          this.$router.push({path:'/addcustomer'})
         }
     }
 }

@@ -12,6 +12,7 @@ import List from '../pages/List'
 import Confirm from '../pages/Confirm'
 import AddAddress from '../pages/AddAddress'
 import UpdateAddress from '../pages/UpdateAddress'
+import AddCustomer from '../pages/AddCustomer'
 
 
 import { getToken } from '../utils/auth'
@@ -24,6 +25,11 @@ const routes = [
   {
     path:"/manager",
     redirect:"/manager/home"
+  },
+  {
+    path: '/addcustomer',
+    name: 'addcustomer',
+    component: () => import('../pages/AddCustomer.vue')
   },
   {
     path: '/manager',
