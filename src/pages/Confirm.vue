@@ -6,22 +6,44 @@
       left-arrow
       @click-left="onClickLeft"
     />
+    <van-notice-bar
+      color="#1989fa" background="#ecf9ff" left-icon="info-o">
+      请您尽快确认订单哦 ^_^
+    </van-notice-bar>
      
-    
     <van-panel>
-      <van-row>
-        <van-col :span="6"><span style="text-algin:center;"><span style="text-algin:center;">顾客信息</span></span></van-col>
-        <van-col :span="17" offset="6">
-          <div>顾客ID：{{info.id}}</div>
-          <div>姓名：{{info.name}}</div>
-        </van-col>
-      </van-row>
+       
+      <van-cell>
+        <van-row>
+          <van-col :span="3">
+            <van-icon name="friends-o" size="25px" />
+          </van-col>
+          <van-col :span="10" >
+            <strong>顾客信息</strong>
+          </van-col>
+        </van-row>
+        <van-row>
+          <van-col :span="4"></van-col>
+          <van-col :span="17">
+            <div>顾客ID：{{info.id}}</div>
+          </van-col>
+        </van-row>
+        <van-row>
+          <van-col :span="4"></van-col>
+          <van-col :span="17">
+            <div>姓名：{{info.name}}</div>
+          </van-col>
+        </van-row>
+      </van-cell>
     </van-panel>
- 
     
+    <van-cell>
       <van-row>
-        <van-col :span="6">地址信息</van-col>
+        <van-col :span="3">
+          <van-icon name="location-o"  size="25px" />
+        </van-col>
         <van-col :span="17">
+          <strong>地址信息</strong>
           <van-dropdown-menu active-color="#ee0a24">
             <van-dropdown-item v-model="value"  :options="addresses"  @change="toSelectHandler"/>
           </van-dropdown-menu>
@@ -31,20 +53,29 @@
           <div>{{item.address}}</div>
         </van-col> -->
       </van-row>
-    
+    </van-cell>
  
     <van-panel>
-      <van-row >
-        <van-col :span="6">订单详情</van-col>
-        <van-col :span="17" offset="6" v-for="item in orderLines.values()" :key="item.c">
-          
-          <div>产品：{{item.productName}}</div>
-          <div>
-            <span>价格：{{item.price}}</span>
-            <span>数量：x {{item.number}}</span>
-          </div>
-        </van-col>
-      </van-row>
+      <van-cell>
+        <van-row >
+          <van-col :span="3">
+            <van-icon name="todo-list-o"  size="25px" />
+          </van-col>
+          <van-col :span="17">
+            <strong>订单详情</strong>
+          </van-col>
+        </van-row >
+        <van-row >
+          <van-col :span="21" v-for="item in orderLines.values()" :key="item.c">
+            <div style="margin-left:65px">产品：{{item.productName}}</div>
+            <div style="margin-left:65px">
+              <span>价格：<span class="num">{{item.price}} 元 </span></span>
+              <span class="number">数量：<span class="num">x {{item.number}}</span></span>
+            </div>
+            <br>
+          </van-col>
+        </van-row>
+      </van-cell>
     </van-panel>
     <!-- {{info}} -->
     <!-- {{addresses}} -->
@@ -84,9 +115,14 @@ export default {
     onSubmit(){
       this.saveOrder(this.id)
       .then((response)=>{
-        this.$notify({ 
-          type: 'success', 
-          message: response.statusText 
+        // this.$notify({ 
+        //   type: 'success', 
+        //   message: response.statusText 
+        // });
+        this.$toast({
+          icon: 'success',
+          message: '下单成功'
+          
         });
         this.$router.push({path:'/manager/order'})
       })
@@ -104,6 +140,14 @@ export default {
     position: fixed;
     bottom: 0;
     width: 100%;
+  }
+  .number{
+    margin-left: 40px; 
+  }
+  .num{   
+    font-weight:bold;  
+    color:#ff9955;
+
   }
   
 </style>
